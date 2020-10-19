@@ -95,8 +95,36 @@ f   When a user clicks a checkbox, holds Shift, and then clicks another checkbox
   </div>
 
   <script>
-    const allCheckboxes = document.querySelectorAll("input[type='checkbox']");
+
+    const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
     console.log(allCheckboxes);
+
+    //using let because the variable will be reassigned
+    let lastChecked;
+
+    function handleCheck(e) {
+     //create a variable "inbetween" indicating that we are in a area we wish to be
+      let inBetween = false;
+      if (e.shiftKey && this.checked) {
+     //loop over every checkbox to check weather it was clicked on
+        allCheckboxes.forEach(checkbox => {
+          if (checkbox === this || checkbox === lastChecked ) {
+            inBetween = !inBetween;
+          }
+
+          if (inBetween) {
+            checkbox.checked = true;
+          }
+        });
+     }
+
+    lastChecked = this;
+
+    }
+
+    //eventListener click will fire even when using a keyboard
+    allCheckboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+
   </script>
 </body>
 </html>
