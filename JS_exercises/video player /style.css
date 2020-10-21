@@ -104,7 +104,7 @@ body {
   flex-basis: 50%;
 }
 
-/* unholy css to style input type="range" */
+/* css to style input type="range" */
 
 input[type=range] {
   -webkit-appearance: none;
