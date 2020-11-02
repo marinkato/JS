@@ -25,11 +25,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: orange;
   }
 
   h1 {
-    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    text-shadow: 10px 10px 0 rgba(0,0,0,0.2);
     font-size: 100px;
   }
   </style>
@@ -37,19 +37,21 @@
 <script>
   const hero = document.querySelector('.hero');
   const text = document.querySelector('h1');
-  const walk = 100;
+  const walk = 400;
 
   function shadow(e) {
     const width = hero.offsetWidth;
     const height = hero.offsetHeight;
     //or const {offsetWidth: witdh, offsetHeight: height} = hero;
     let {offsetX: x, offsetY: y } = e;
-
+    /*when dealing with events, we can use offsetX and offsetY to get
+    to get the cursor position and if we have nested elements we need
+    to do little bit of math*/
     if(this !== e.target) {
       x = x + e.target.offsetLeft;
       y = y + e.target.offsetTop;
     }
-    const xWalk = Math.round((x / width * walk) - (walk / 2));
+    const xWalk = Math.round((x / width * walk) - (walk / 2)); //
     const yWalk = Math.round((y / width * walk) - (walk / 2));
 
     text.style.textShadow = `
@@ -57,6 +59,7 @@
       ${xWalk * -1}px ${yWalk}px 0 rgba(0,255,255,0.7),
       ${yWalk}px ${xWalk * -1}px 0 rgba(0,255,0,0.7),
       ${yWalk * -1}px ${xWalk}px 0 rgba(0,0,255,0.7)
+
     `;
 
 
