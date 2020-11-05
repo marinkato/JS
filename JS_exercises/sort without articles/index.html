@@ -52,9 +52,12 @@ function strip(bandname) {
   return bandname.replace(/^(a |the |an)/i,'').trim();
 }
 
-const withoutArticle = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
+const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
 
-document.querySelector('#bands').innerHTML = sortedBands.map(band)
+document.querySelector('#bands').innerHTML =
+  sortedBands
+  .map(band => `<li>${band}</li>`)
+  .join('');//by default there are a bunch of strings with a comma in between - we need .join that will join it into 1 big string
 
 </script>
 
