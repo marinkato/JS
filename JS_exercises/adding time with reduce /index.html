@@ -182,6 +182,7 @@
     </li>
   </ul>
 <script>
+
   const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
   console.log(timeNodes);
 
@@ -190,10 +191,15 @@
     from an array of list of items into an array of strings */
     .map(timeCode => {
       const [mins, secs] = timeCode.split(':').map(parseFloat);
-      return (min * 60) + secs;
+      return (mins * 60) + secs;
     })
     .reduce((total, vidSeconds) => total + vidSeconds) /*map returns an modified
     array, reduce returns anything you like - a string, number, object */
+
+    // we need to chop the const seconds to hours, minutes, seconds
+    let secondsLeft = seconds;
+    const hours = Math.floor(secondsLeft / 3600);
+    secondsLeft = secondsLeft % 3600;
 
 </script>
 </body>
