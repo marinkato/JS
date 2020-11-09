@@ -8,12 +8,25 @@ function getVideo() {
   navigator.mediaDevices.getUserMedia({video: true, audio: false})
     .then(localMediaStream => {
       console.log(localMediaStream);
-      video.src = window.URL.createObjectURL(localMediaStream);
-      video.play(); //video source is a blob - that means its the raw data
+      video.src = window.URL.createObjectURL(localMediaStream); /* localMediaStream
+      is an object and needs to be converted into an URL, usually we have a format of .mp4,
+      but since we want to make a live video feed we need to convert it to type of an URL */
+      video.play(); //video source is a blob - that means its the raw data from the webcam
     });
     .catch(err => {
-      console.error('You denied access to your webcam', err);
+      console.error('You denied access of your webcam', err);
     });
+}
+
+function paintToCanvas() { //this functions takes a frame from the video and paints it on the canvas on the stream
+  const width = video.videoWidth;
+  const height = video.videoHeight;
+  canvas.width = width;
+  canvas.height = height;
+
+  setInterval(() => {
+    ctx.drawImage(video)
+    )
 }
 
 getVideo();
