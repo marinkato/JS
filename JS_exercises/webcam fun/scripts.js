@@ -24,10 +24,22 @@ function paintToCanvas() { //this functions takes a frame from the video and pai
   canvas.width = width;
   canvas.height = height;
 
-  setInterval(() => {
-    ctx.drawImage(video)
-    )
+  return setInterval(() => {
+    ctx.drawImage(video, 0, 0, width, height);
+  }, 16);
 }
 
+function takePhoto() {
+ //played the sound
+  snap.currentTime = 0;
+  snap.play();
+}
+//taking the data out of the canvas
+const data = canvas.canvas.toDataUrl('image/jpeg');
+console.log('data'); //we get text based representation of the image
+
+
 getVideo();
+
+video.addEventListener('canplay', paintToCanvas)
 
