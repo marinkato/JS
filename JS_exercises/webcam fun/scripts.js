@@ -26,6 +26,12 @@ function paintToCanvas() { //this functions takes a frame from the video and pai
 
   return setInterval(() => {
     ctx.drawImage(video, 0, 0, width, height);
+    //take the pixels out
+    let pixels = ctx.getImageData(0, 0, width, height);
+    // mess with them
+    pixels = redEffect(pixels);
+    //put them back
+    ctx.putImageData(pixels, 0, 0);
   }, 16);
 }
 
@@ -33,13 +39,28 @@ function takePhoto() {
  //played the sound
   snap.currentTime = 0;
   snap.play();
+  //taking the data out of the canvas
+  const data = canvas.toDataUrl('image/jpeg');//we get text based representation of the image, containing little attributes
+  console.log('data');
+  const link = document.createElement('a'); //creating an anchor link
+  link.href = data; //that anchor link = data
+  link.setAttribute('download', 'handsome'); /*the name of the attribute is download and we are setting it to handsome - so
+  if we want to download the image, it will be saved as'handsome.jpeg '*/
+  link.innerHTML = `<img src="${data}" alt="Handsome lady"/> `;
+  strip.insertBefore(link, strip.firstChild);
 }
-//taking the data out of the canvas
-const data = canvas.canvas.toDataUrl('image/jpeg');
-console.log('data'); //we get text based representation of the image
 
+//to implement filters we take the pixels out of the canvas, then we change the rgb values and put them back in
+function redEffect(pixels) {
+  for(let i = 0; i < pixels.length; i+=4) {
+    pixels[i + 0] = pixels.data[i + 0] + 100; // red
+    pixels[i + 1] = pixels.data[i + 1] - 50; // green
+    pixels[i + 2] = pixels.data[i + 2] * 0.5; // blue
+  }
+  return pixels;
+}
 
 getVideo();
 
-video.addEventListener('canplay', paintToCanvas)
+video.addEventListener('canplay', paintToCanvas) // to avoid manually playing paintToCanvas we add a 'canplay' event
 
