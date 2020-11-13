@@ -29,8 +29,11 @@ function paintToCanvas() { //this functions takes a frame from the video and pai
     //take the pixels out
     let pixels = ctx.getImageData(0, 0, width, height);
     // mess with them
-    pixels = redEffect(pixels);
-    //put them back
+    //pixels = redEffect(pixels);
+    // pixels = rgbSplit(pixels);
+    // ctx.globalAlpha = 0.1; // writes the iimage that we have, but the ones that are underneath are still going to show for 10 more frames = putting the transparency of 10% of the current image on top and stacking = ghosting
+    pixels = greenScreen(pixels);
+    // put them back
     ctx.putImageData(pixels, 0, 0);
   }, 16);
 }
@@ -52,11 +55,46 @@ function takePhoto() {
 
 //to implement filters we take the pixels out of the canvas, then we change the rgb values and put them back in
 function redEffect(pixels) {
-  for(let i = 0; i < pixels.data.length; i+=4) {
+  for(let i = 0; i < pixels.data.length; i+=4) { //lopping over every single pixels - not using map here because its a special kind of array
     pixels[i + 0] = pixels.data[i + 0] + 100; // red
     pixels[i + 1] = pixels.data[i + 1] - 50; // green
     pixels[i + 2] = pixels.data[i + 2] * 0.5; // blue
   }
+  return pixels;
+}
+
+function rgbSplit(pixels) {
+  for(let i = 0; i < pixels.data.length; i+=4) { //instead of changing each individual, we take the red and change it - pulling apart different red, green, blue and moving them to either side
+    pixels.data[i - 150] = pixels.data[i + 0] ; // red
+    pixels.data[i + 100] = pixels.data[i + 1]; // green
+    pixels.data[i - 150] = pixels.data[i + 2]; // blue
+
+}
+
+function greenScreen(pixels) {
+  const levels = {}; //object that holds min & max green
+
+  document.querySelectorAll('.rgb input').forEach((input) => { //grabbed all .rgb inputs
+    levels[input.name] = input.value;
+  });
+
+  for (i = 0; i < pixels.data.length; i = i + 4) {
+    red = pixels.data[i + 0];
+    green = pixels.data[i + 1];
+    blue = pixels.data[i + 2];
+    alpha = pixels.data[i + 3];
+
+    if (red >= levels.rmin
+      && green >= levels.gmin
+      && blue >= levels.bmin
+      && red <= levels.rmax
+      && green <= levels.gmax
+      && blue <= levels.bmax) {
+      // take it out!
+      pixels.data[i + 3] = 0;
+    }
+  }
+
   return pixels;
 }
 
