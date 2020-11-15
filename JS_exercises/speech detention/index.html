@@ -13,16 +13,32 @@
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   //global variable that lives in the browser
   const recognition = new SpeechRecognition();
-  recognition.interimResults = true; /*as I am speaking its population the list, if it wasn't
-  set then it would populate the list only as you stop speaking*/
+  recognition.interimResults = true; /*as I am speaking its population the list,
+   if it wasn't set then it would populate the list only as you stop speaking*/
 
   let p = document.createElement('p');
   const words = document.querySelector('.words');
   words.appendChild(p);
 
-  recognition.addEventListener('results', e => {
-    console.log(e);
+  recognition.addEventListener('result', e => {
+    const transcript = Array.from(e.results) /* need to make it into array,
+  because originally its a list */
+      .map(result => result [0])
+      .map(result => result.transcript)
+      .join('')
+
+      p.textContent = transcript;
+      if(e.results[0].isFinal) {
+        p = document.createElement('p');
+        words.appendChild('p');
+      }
   });
+
+  recognition.addEventListener('end', recognition.start);
+
+  recognition.start();
+
+
 
 
 </script>
