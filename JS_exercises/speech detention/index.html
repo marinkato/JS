@@ -23,7 +23,7 @@
   recognition.addEventListener('result', e => {
     const transcript = Array.from(e.results) /* need to make it into array,
   because originally its a list */
-      .map(result => result [0])
+      .map(result => result[0])
       .map(result => result.transcript)
       .join('')
 
