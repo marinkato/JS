@@ -62,10 +62,16 @@
     const arrow = document.querySelector('.arrow');
     const speed = document.querySelector('.speed-value');
 
-    navigator.geolocation.watchPosition((data) => { // watchPosition will give us data (frequent update) as the persons moves, data gives us geoposition (heading included, it gives us the number of degreees relative to north)
-      speed.textContent = data.coords.speed;
+    navigator.geolocation.watchPosition((data) => { /* watchPosition will give
+      us data - updated as the persons moves, data gives us geoposition*/
+      speed.textContent = data.coords.speed; //textContent is not innerText nor innerHTML
+      arrow.style.transform = `rotate(${data.coords.heading})`; /* to rotate
+      the compass depending where we are - we take geoposition which has
+      the heading included - it gives us the number of degreees relative to north)*/
+    }, (err) => {
+      console.log(err);
+      alert('You need to allow this to happen!')
     });
-
 
   </script>
 </body>
