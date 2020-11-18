@@ -26,7 +26,15 @@
     </div>
 
   <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    const triggers = document.querySelectorAll('a'); //triggers are things that will be hovered and need a background behind it, every single link
+    const hightlight = document.createElement('span');
+    hightlight.classList.add('hightlight');
+    document.body.append(hightlight);
+
+      function highlight() {
+        console.log('HIGHLIGHT')
+      }
+
   </script>
 </body>
 </html>
