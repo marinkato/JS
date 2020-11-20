@@ -34,7 +34,8 @@
       function highlightLink() { // listen when entering a link
         const linkCoords = this.getBoundingClientRect() // we use this to get the info about the position
         // console.log(this) - using this to console.log - logs the element, <a href="">Home</a></li>
-        console.log(linkCoords);
+        highlight.style.width = `${linkCoords.width}px`;
+        highlight.style.height = `${linkCoords.height}px`;
       }
 
     triggers.forEach( a => a.addEventListener ('mouseenter', highlightLink)) //we are listening to all mouseenters events on all the triggers

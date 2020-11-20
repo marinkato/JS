@@ -33,7 +33,7 @@ a {
 }
 
 .highlight {
-  transition: all 0.2s;
+  transition: all 0.2s; /* we need this so we get the transition, without it, it would immediately snap*/
   border-bottom: 2px solid white;
   position: absolute;
   top: 0;
