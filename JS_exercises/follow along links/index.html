@@ -26,10 +26,10 @@
     </div>
 
   <script>
-    const triggers = document.querySelectorAll('a'); //triggers are links that will be hovered and need a background behind it
-    const highlight = document.createElement('span'); // need to create an element that hightligts every link (its width, height and its position on the page) since hightlight has a transition attribute on it, its going to transition itself
+    const triggers = document.querySelectorAll('a'); //triggers are links that will be hovered, that need a background behind it
+    const highlight = document.createElement('span'); // creating an element that hightligts every link, since hightlight has a transition attribute on it(CSS), its going to transition itself
     highlight.classList.add('hightlight'); //creating a class of hightlight
-    document.body.append(highlight); //putting that class into the dome
+    document.body.append(highlight); //putting that class into the dome, we cant see it in the browser because it doesnt have a width, height or a position, its visable with inspect
 
       function highlightLink() { // listen when entering a link
         const linkCoords = this.getBoundingClientRect() // we use this to get the info about the position
@@ -45,7 +45,7 @@
         highlight.style.transform = `translate(${linkCoords.left}px, ${linkCoords.top}px)`;
       };
 
-    triggers.forEach( a => a.addEventListener ('mouseenter', highlightLink)) //we are listening to all mouseenters events on all the triggers
+    triggers.forEach( a => a.addEventListener ('mouseenter', highlightLink)) //we are listening to all mouseenters events on all the triggers(links)
 
   </script>
 </body>
