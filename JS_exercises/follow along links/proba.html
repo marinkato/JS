@@ -25,28 +25,30 @@
       <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
     </div>
 
-  <script>
-    const triggers = document.querySelectorAll('a'); //triggers are links that will be hovered, that need a background behind it
-    const highlight = document.createElement('span'); // creating an element that hightligts every link, since hightlight has a transition attribute on it(CSS), its going to transition itself
-    highlight.classList.add('hightlight'); //creating a class of hightlight
-    document.body.appendChild(highlight); //putting that class into the dome, we cant see it in the browser because it doesnt have a width, height or a position, its visable with inspect
+<script>
+  const triggers = document.querySelectorAll('a');
+  const highlight = document.createElement('span');
+  highlight.classList.add('highlight');
+  document.body.appendChild(highlight);
 
-      function highlightLink() { // listen when entering a link
-        const linkCoords = this.getBoundingClientRect() // we use this to get the info about the position
-        const coords = {
-          width: linkCoords.width,
-          height: linkCoords.height,
-          top: linkCoords.top + window.scrollY,
-          left: linkCoords.left + window.scrollX
-        };
-        // console .log(this) - using this to console.log - logs the element, <a href="">Home</a></li>
-        highlight.style.width = `${coords.width}px`; //when we add the style, we add it dynamically
-        highlight.style.height = `${coords.height}px`;
-        highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
-      };
+  function highlightLink() {
+    const linkCoords = this.getBoundingClientRect();
+    console.log(linkCoords);
+    const coords = {
+      width: linkCoords.width,
+      height: linkCoords.height,
+      top: linkCoords.top + window.scrollY,
+      left: linkCoords.left + window.scrollX
+    };
 
-    triggers.forEach(a => a.addEventListener('mouseenter', highlightLink)) //we are listening to all mouseenters events on all the triggers(links)
+    highlight.style.width = `${coords.width}px`;
+    highlight.style.height = `${coords.height}px`;
+    highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
 
-  </script>
+  }
+
+  triggers.forEach(a => a.addEventListener('mouseenter', highlightLink));
+
+</script>
 </body>
 </html>
