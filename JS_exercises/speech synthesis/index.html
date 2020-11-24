@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,13 +30,21 @@
     </div>
 
 <script>
-  // adding text to voide = speech synthesis that comes in most modern browsers
-  const msg = new SpeechSynthesisUtterance();
-  let voices = [];
+  // adding text to voice = speech synthesis that comes in most modern browsers
+  const msg = new SpeechSynthesisUtterance(); // SpeechSynthesisUtterance contains what is the person going to say(how fast, the pitch, the voice they say it in)
+  let voices = []; // the voices will be dumped into
   const voicesDropdown = document.querySelector('[name="voice"]');
   const options = document.querySelectorAll('[type="range"], [name="text"]');
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
+  msg.text = document.querySelector(`[name = "text"]`).value //whatever is in the text area on the page load is set as a default, calling a value from it
+
+  function populateVoices() {
+    voices = this.getVoices();
+    console.log(voices);
+  }
+
+  speechSynthesis.addEventListener('voiceschanged', populateVoices);
 
 </script>
 
