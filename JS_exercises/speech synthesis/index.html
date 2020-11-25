@@ -23,7 +23,7 @@
       <label for="pitch">Pitch:</label>
 
       <input name="pitch" type="range" min="0" max="2" step="0.1">
-      <textarea name="text">Hello! I love JavaScript 👍</textarea>
+      <textarea name="text">How does it work ecaxtly 👍</textarea>
       <button id="stop">Stop!</button>
       <button id="speak">Speak</button>
 
@@ -41,10 +41,11 @@
 
   function populateVoices() {
     voices = this.getVoices();
-    console.log(voices);
+    console.log(voices); //a whole lot of voices come built in with a mac
+
   }
 
-  speechSynthesis.addEventListener('voiceschanged', populateVoices);
+  speechSynthesis.addEventListener('voiceschanged', populateVoices); //we are populating voices
 
 </script>
 
