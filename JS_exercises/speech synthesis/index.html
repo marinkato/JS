@@ -39,9 +39,13 @@
   const stopButton = document.querySelector('#stop');
   msg.text = document.querySelector(`[name = "text"]`).value //whatever is in the text area on the page load is set as a default, calling a value from it
 
-  function populateVoices() {
+  function populateVoices() { //this cant be called on page load, because when speecsynthesis loads it has to fire voiceschanged
     voices = this.getVoices();
-    console.log(voices); //a whole lot of voices come built in with a mac
+    //console.log(voices); a whole lot of voices come built in with a mac
+    const voiceOptions = voices
+      .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`) //looping over all of the speechvoices and set them as options in the dropdown
+      .join('');
+      voicesDropdown.innerHTML = voiceOptions;
 
   }
 
