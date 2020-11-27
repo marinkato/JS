@@ -42,14 +42,17 @@
   function populateVoices() { //this cant be called on page load, because when speecsynthesis loads it has to fire voiceschanged
     voices = this.getVoices();
     //console.log(voices); a whole lot of voices come built in with a mac
-    const voiceOptions = voices
+    voicesDropdown.innerHTML = voices
       .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`) //looping over all of the speechvoices and set them as options in the dropdown
-      .join('');
-      voicesDropdown.innerHTML = voiceOptions;
+      .join(''); //now the voices are loaded on the page
+  }
 
+  function setVoice() {
+    console.log(this.value);
   }
 
   speechSynthesis.addEventListener('voiceschanged', populateVoices); //we are populating voices
+  voicesDropdown.addEventListener('change', setVoice)
 
 </script>
 
