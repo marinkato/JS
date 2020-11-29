@@ -23,7 +23,7 @@
       <label for="pitch">Pitch:</label>
 
       <input name="pitch" type="range" min="0" max="2" step="0.1">
-      <textarea name="text">How does it work exactly? </textarea>
+      <textarea name="text">How does it work exactly?How does it work exactly How does it work exactly </textarea>
       <button id="stop">Stop!</button>
       <button id="speak">Speak</button>
 
@@ -49,6 +49,12 @@
 
   function setVoice() {
     msg.voice = voices.find(voice => voice.name === this.value)//looping over every voice in the array, finding the one where the name attribute is the same as the option that was selected
+    toggle();
+  }
+
+  function toggle() { //everytime we change a voice in the dropdown - we want the second voice to go over the first selected
+    speechSynthesis.cancel()
+    speechSynthesis.speak(msg);
   }
 
   speechSynthesis.addEventListener('voiceschanged', populateVoices); //we are populating voices
