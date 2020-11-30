@@ -53,12 +53,19 @@
   }
 
   function toggle() { //everytime we change a voice in the dropdown - we want the second voice to go over the first selected
-    speechSynthesis.cancel()
+    speechSynthesis.cancel() // cancels the voice from speaking
     speechSynthesis.speak(msg);
+  }
+
+  function setOption() {
+    //console.log(this.name, this.value);
+    msg[this.name] = this.value;
+    toggle();
   }
 
   speechSynthesis.addEventListener('voiceschanged', populateVoices); //we are populating voices
   voicesDropdown.addEventListener('change', setVoice)
+  options.forEach(option => option.addEventListener('change', setOption));
 
 </script>
 
