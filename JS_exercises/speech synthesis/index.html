@@ -32,7 +32,7 @@
 <script>
   // adding text to voice = speech synthesis that comes in most modern browsers
   const msg = new SpeechSynthesisUtterance(); // SpeechSynthesisUtterance contains what is the person going to say(how fast, the pitch, the voice they say it in)
-  let voices = []; // the voices will be dumped into
+  let voices = []; // the voices will be dumped here
   const voicesDropdown = document.querySelector('[name="voice"]');
   const options = document.querySelectorAll('[type="range"], [name="text"]');
   const speakButton = document.querySelector('#speak');
@@ -43,6 +43,7 @@
     voices = this.getVoices();
     //console.log(voices); a whole lot of voices come built in with a mac
     voicesDropdown.innerHTML = voices
+      .filter(voice => voice.lang.includes('en'))
       .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`) //looping over all of the speechvoices and set them as options in the dropdown
       .join(''); //now the voices are loaded on the page
   }
@@ -66,6 +67,9 @@
   speechSynthesis.addEventListener('voiceschanged', populateVoices); //we are populating voices
   voicesDropdown.addEventListener('change', setVoice)
   options.forEach(option => option.addEventListener('change', setOption));
+  speakButton.addEventListener('click', toggle);
+  stopButton.addEventListener('click', toggle.bind(null, false)); /*bind takes a function and calls it in the context of null (pass the value of nothing) and passes the argument of false,
+  we cant just run toggle(false) because that runs on page load*/
 
 </script>
 
