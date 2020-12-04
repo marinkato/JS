@@ -55,10 +55,17 @@
 <script>
   //to goal is to fix the nav when we scroll the page
   const nav = document.querySelector('#main');//grabbing the nav
-  const topOfNav = nav.offsetTop;
+  const topOfNav = nav.offsetTop; // HTMLElement.offsetTop - read-only property returns the distance of the outer border of the current element relative to the inner border of the top of the offsetParent node.
+
+
 
   function fixNav() { //this function will run on every window page scroll
-    console.log(topOfNav, window.scrollY);
+    //console.log(topOfNav, window.scrollY); scrollY - property of the window returns the number of pixels that the document is currently scrolled vertically
+    if(window.scrollY >= topOfNav) {
+      document.body.classList.add('fixed-nav');
+    } else {
+      document.body.classList.remove('fixed-nav');
+    }
   }
 
   window.addEventListener('scroll', fixNav);

@@ -50,6 +50,11 @@ nav {
   z-index: 1;
 }
 
+.fixed-nav nav { /* when the body has the fixed-nav class make the nav different*/
+  position: fixed;
+  background-origin: 0 5px rgba(0, 0, 0, 0.1);
+}
+
 nav ul {
   margin: 0;
   padding:0;
