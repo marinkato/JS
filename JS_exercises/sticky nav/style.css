@@ -46,11 +46,11 @@ nav {
   top: 0;
   width: 100%;
   transition: all 0.5s;
-  position: relative;
-  z-index: 1;
+  position: relative; /*how to push test*/
+  z-index: 1; /*how to push test*/
 }
 
-.fixed-nav nav { /* when the body has the fixed-nav class make the nav different*/
+.fixed-nav nav { /* when the body has the fixed-nav class make the nav position - fixed*/
   position: fixed;
   background-origin: 0 5px rgba(0, 0, 0, 0.1);
 }
